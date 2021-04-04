@@ -3,13 +3,35 @@
 
 class Queue {
     public:
-    // Constructor
+    // Constructors
     Queue(int value) {
         list = new Client[value];
         free = new bool[value];
         this->count = value;
     }
     ~Queue() {}
+
+    void copyQueue() {
+    }
+
+    // Enqueue
+
+    void enqueue(Client &value) {
+            for(int i = 0; i < count; i++) {
+            if (free[i] == false) {
+                if ((i + 1) != count) {
+                list[i] = list[i+1];
+                free[i+1] = false;
+                free[i] = true;
+                }
+                else {
+                    list[i] = value;
+                    free[i] = true
+                }
+            }
+        }
+            throw "Ячейки в памяти закончились!";
+    }
 
     private:
     Client *list;
