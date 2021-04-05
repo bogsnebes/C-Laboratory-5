@@ -11,7 +11,14 @@ class Queue {
     }
     ~Queue() {}
 
-    void copyQueue() {
+    Queue copyQueue() {
+        Queue queueTwo = Queue(count);
+        for(int i = 0; i < count; i++) {
+            if (free[i] == true) {
+                queueTwo.enqueue(list[i]);
+            }
+        }
+        return queueTwo;
     }
 
     // Enqueue
@@ -55,7 +62,8 @@ class Queue {
             throw "Ячейки в памяти закончились!";
     }
 
-    // dequeue
+    // /enqueue
+
     Client dequeue() {
             for(int i = 0; i < count; i++) {
             if (free[i] == false) {
@@ -75,6 +83,11 @@ class Queue {
                 return;
             }
     }
+
+    void extend(Queue &value) {
+    }
+
+
 
     private:
     Client *list;
