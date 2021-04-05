@@ -20,9 +20,11 @@ class Queue {
             for(int i = 0; i < count; i++) {
             if (free[i] == false) {
                 if ((i + 1) != count) {
+                    if (free[i+1] == true) {
                 list[i] = list[i+1];
                 free[i+1] = false;
                 free[i] = true;
+                }
                 }
                 else {
                     list[i] = value;
@@ -37,9 +39,11 @@ class Queue {
             for(int i = 0; i < count; i++) {
             if (free[i] == false) {
                 if ((i + 1) != count) {
+                    if (free[i+1] == true) {
                 list[i] = list[i+1];
                 free[i+1] = false;
                 free[i] = true;
+                }
                 }
                 else {
                     Client NewClient = Client(name, adress, discount);
@@ -49,6 +53,27 @@ class Queue {
             }
         }
             throw "Ячейки в памяти закончились!";
+    }
+
+    // dequeue
+    Client dequeue() {
+            for(int i = 0; i < count; i++) {
+            if (free[i] == false) {
+                if ((i + 1) != count) {
+                    if (free[i+1] == true) {
+                list[i] = list[i+1];
+                free[i+1] = false;
+                free[i] = true;
+                }
+                }
+            }
+            }
+            if (free[0] != false) {
+                return list[0];
+            }
+            else {
+                return;
+            }
     }
 
     private:
