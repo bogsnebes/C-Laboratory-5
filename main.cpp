@@ -19,4 +19,5 @@ int main() {
     list.extend(list_2);
     list.showQueue();
     (list.next()).showQueue();
+    cout << list.display();
 }

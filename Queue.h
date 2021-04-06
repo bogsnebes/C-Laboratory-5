@@ -173,6 +173,28 @@ class Queue {
         }
     }
 
+    string display() {
+        for (int i = 0; i < count; i++) {
+            if (free[i] == false) {
+                if ((i + 1) != count) {
+                    if (free[i + 1] == true) {
+                        list[i] = list[i + 1];
+                        free[i + 1] = false;
+                        free[i] = true;
+                    }
+                }
+            }
+        }
+        string stringQueue = "[";
+        stringQueue += string(list[0].getFio()) + ", " + string(list[0].getAdress());
+        for (int i = 1; i < count; i++) {
+            if (free[i] == true)
+            stringQueue += " -> " + string(list[i].getFio()) + ", " + string(list[i].getAdress());
+        }
+        stringQueue += "]";
+        return stringQueue;
+    }
+
     private:
     Client *list;
     bool *free;
