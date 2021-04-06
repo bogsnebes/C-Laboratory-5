@@ -8,6 +8,11 @@ class Queue {
         list = new Client[value];
         free = new bool[value];
         this->count = value;
+        for (int i = 0; i < value; i++) {
+            free[i] = false;
+            Client NewClient = Client(_strdup("0"), _strdup("0"), -1);
+            list[i] = NewClient;
+        }
     }
     ~Queue() {}
 
@@ -39,7 +44,7 @@ class Queue {
                 }
             }
         }
-            throw "Ячейки в памяти закончились!";
+
     }
 
     void enqueue(char *name, char *adress, int discount) {
@@ -59,7 +64,6 @@ class Queue {
                 }
             }
         }
-            throw "Ячейки в памяти закончились!";
     }
 
     // /enqueue
@@ -77,17 +81,70 @@ class Queue {
             }
             }
             if (free[0] != false) {
-                return list[0];
+                Client buffer = list[0];
+                Client NewClient = Client(_strdup("0"), _strdup("0"), -1);
+                list[0] = NewClient;
+                free[0] = false;
+                return buffer;
             }
             else {
-                return;
+                Client NewClient = Client(_strdup("0"), _strdup("0"), -1);
+                return NewClient;
             }
     }
 
     void extend(Queue &value) {
+        Queue buffer = this->copyQueue();
+        delete[] list;
+        delete[] free;
+        int outcomeCount = (value.getCount() + buffer.getCount());
+        this->list = new Client[outcomeCount];
+        this->free = new bool[outcomeCount];
+        this->count = outcomeCount;
+        for (int i = 0; i < outcomeCount; i++) {
+            free[i] = false;
+            Client NewClient = Client(_strdup("0"), _strdup("0"), -1);
+            list[i] = NewClient;
+        }
+        for (int i = 0; i < buffer.getCount(); i++) {
+            free[i] = (buffer.getFree())[i];
+            list[i] = (buffer.getList())[i];
+        }
+        for (int i = 0; i < value.getCount(); i++) {
+            free[buffer.getCount() + i] = (value.getFree())[i];
+            list[buffer.getCount() + i] = (value.getList())[i];
+        }
     }
 
+    void showQueue() {
+        for (int i = 0; i < count; i++) {
+            if (free[i] == true) {
+                list[i].showClient();
+                cout << "------------------------" << endl;
+                cout << endl;
+            }
+        }
+    }
 
+    int getCount() {
+        return this->count;
+    }
+
+    Client* getList() {
+        return this->list;
+    }
+
+    bool* getFree() {
+        return this->free;
+    }
+
+    Client operator[](int value) {
+        if (free[value] == false) {
+            Client NewClient = Client(_strdup("0"), _strdup("0"), 0);
+            return NewClient;
+        }
+        return list[value];
+    }
 
     private:
     Client *list;

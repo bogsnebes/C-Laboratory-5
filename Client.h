@@ -7,7 +7,8 @@ using namespace std;
 
 class Client {
     public:
-    Client() {}
+    Client() {
+    }
     void setFio(char *value) {
         this -> fio = value;
     }
@@ -32,11 +33,12 @@ class Client {
         setAdress(adress);
         setDiscount(discount);
     }
-    void ShowClient() {
+    void showClient() {
         setlocale(0, "");
         cout << "Name client:" << getFio() << endl;
         cout << "Adress client:" << getAdress() << endl;
         cout << "Discount client:" << getDiscount() << endl;
+        cout << endl;
     }
     ~Client() {}
     bool operator==(Client &value) {
@@ -46,9 +48,9 @@ class Client {
     }
 
     void operator=(Client &value) {
-        fio = value.getFio();
-        adress = value.getAdress();
-        discount = value.getDiscount();
+        this->fio = value.getFio();
+        this->adress = value.getAdress();
+        this->discount = value.getDiscount();
     }
     private:
     char *fio;
