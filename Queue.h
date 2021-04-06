@@ -146,6 +146,33 @@ class Queue {
         return list[value];
     }
 
+    Queue next() {
+        for (int i = 0; i < count; i++) {
+            if (free[i] == false) {
+                if ((i + 1) != count) {
+                    if (free[i + 1] == true) {
+                        list[i] = list[i + 1];
+                        free[i + 1] = false;
+                        free[i] = true;
+                    }
+                }
+            }
+        }
+        if (free[0] != false) {
+            Client bufferClient = list[0];
+            Client NewClient = Client(_strdup("0"), _strdup("0"), -1);
+            list[0] = NewClient;
+            free[0] = false;
+            Queue bufferQueue = this->copyQueue();
+            list[0] = bufferClient;
+            free[0] = true;
+            return this->copyQueue();
+        }
+        else {
+            return this->copyQueue();
+        }
+    }
+
     private:
     Client *list;
     bool *free;

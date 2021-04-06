@@ -18,4 +18,5 @@ int main() {
     Queue list_2 = list.copyQueue();
     list.extend(list_2);
     list.showQueue();
+    (list.next()).showQueue();
 }
