@@ -20,4 +20,5 @@ int main() {
     list.showQueue();
     (list.next()).showQueue();
     cout << list.display();
+    cout << list.checkQueue();
 }

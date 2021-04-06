@@ -195,6 +195,16 @@ class Queue {
         return stringQueue;
     }
 
+    int checkQueue() {
+        int countFree = 0;
+        for (int i = 0; i < count; i++) {
+            if (free[i] == false) {
+                countFree += 1;
+            }
+            return (count - countFree);
+        }
+    }
+
     private:
     Client *list;
     bool *free;
