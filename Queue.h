@@ -215,8 +215,8 @@ class Queue {
             if (free[i] == false) {
                 countFree += 1;
             }
-            return (count - countFree);
         }
+            return (count - countFree);
     }
 
     void operator=(Queue &value) {
