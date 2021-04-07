@@ -21,4 +21,10 @@ int main() {
     (list.next()).showQueue();
     cout << list.display();
     cout << list.checkQueue();
+    list_2 = list;
+    list_2.showQueue();
+    list += list_2;
+    list.showQueue();
+    Queue list_3 = list + list_2;
+    list_3.showQueue();
 }

@@ -205,6 +205,44 @@ class Queue {
         }
     }
 
+    void operator=(Queue &value) {
+        this->list = value.getList();
+        this->free = value.getFree();
+        this->count = value.getCount();
+    }
+
+    void operator+=(Queue& value) {
+        Queue buffer = this->copyQueue();
+        delete[] list;
+        delete[] free;
+        int outcomeCount = (value.getCount() + buffer.getCount());
+        this->list = new Client[outcomeCount];
+        this->free = new bool[outcomeCount];
+        this->count = outcomeCount;
+        for (int i = 0; i < outcomeCount; i++) {
+            free[i] = false;
+            Client NewClient = Client(_strdup("0"), _strdup("0"), -1);
+            list[i] = NewClient;
+        }
+        for (int i = 0; i < buffer.getCount(); i++) {
+            free[i] = (buffer.getFree())[i];
+            list[i] = (buffer.getList())[i];
+        }
+        for (int i = 0; i < value.getCount(); i++) {
+            free[buffer.getCount() + i] = (value.getFree())[i];
+            list[buffer.getCount() + i] = (value.getList())[i];
+        }
+    }
+
+    Queue operator+(Queue &value) {
+        Queue buffer = this->copyQueue();
+        Queue returnQueue = Queue(0);
+        returnQueue = buffer;
+        returnQueue += value;
+        return returnQueue;
+    }
+
+
     private:
     Client *list;
     bool *free;
