@@ -69,17 +69,24 @@ class Queue {
     // /enqueue
 
     Client dequeue() {
-            for(int i = 0; i < count; i++) {
-            if (free[i] == false) {
-                if ((i + 1) != count) {
-                    if (free[i+1] == true) {
-                list[i] = list[i+1];
-                free[i+1] = false;
-                free[i] = true;
-                }
+        bool countBusy = false;
+        while (free[0] == false) {
+            for (int i = 0; i < count; i++) {
+                if (free[i] == false) {
+                    if ((i + 1) != count) {
+                        if (free[i + 1] == true) {
+                            list[i] = list[i + 1];
+                            free[i + 1] = false;
+                            free[i] = true;
+                            countBusy = true;
+                        }
+                    }
                 }
             }
+            if (countBusy == false) {
+                break;
             }
+        }
             if (free[0] != false) {
                 Client buffer = list[0];
                 Client NewClient = Client(_strdup("0"), _strdup("0"), -1);
@@ -174,15 +181,22 @@ class Queue {
     }
 
     string display() {
-        for (int i = 0; i < count; i++) {
-            if (free[i] == false) {
-                if ((i + 1) != count) {
-                    if (free[i + 1] == true) {
-                        list[i] = list[i + 1];
-                        free[i + 1] = false;
-                        free[i] = true;
+        bool countBusy = false;
+        while (free[0] == false) {
+            for (int i = 0; i < count; i++) {
+                if (free[i] == false) {
+                    if ((i + 1) != count) {
+                        if (free[i + 1] == true) {
+                            list[i] = list[i + 1];
+                            free[i + 1] = false;
+                            free[i] = true;
+                            countBusy = true;
+                        }
                     }
                 }
+            }
+            if (countBusy == false) {
+                break;
             }
         }
         string stringQueue = "[";
@@ -244,15 +258,22 @@ class Queue {
 
     bool operator==(Queue& value) {
         if (count == value.getCount()) {
-            for (int i = 0; i < count; i++) {
-                if (free[i] == false) {
-                    if ((i + 1) != count) {
-                        if (free[i + 1] == true) {
-                            list[i] = list[i + 1];
-                            free[i + 1] = false;
-                            free[i] = true;
+            bool countBusy = false;
+            while (free[0] == false) {
+                for (int i = 0; i < count; i++) {
+                    if (free[i] == false) {
+                        if ((i + 1) != count) {
+                            if (free[i + 1] == true) {
+                                list[i] = list[i + 1];
+                                free[i + 1] = false;
+                                free[i] = true;
+                                countBusy = true;
+                            }
                         }
                     }
+                }
+                if (countBusy == false) {
+                    break;
                 }
             }
             for (int i = 0; i < count; i++) {
