@@ -242,6 +242,29 @@ class Queue {
         return returnQueue;
     }
 
+    bool operator==(Queue& value) {
+        if (count == value.getCount()) {
+            for (int i = 0; i < count; i++) {
+                if (free[i] == false) {
+                    if ((i + 1) != count) {
+                        if (free[i + 1] == true) {
+                            list[i] = list[i + 1];
+                            free[i + 1] = false;
+                            free[i] = true;
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < count; i++) {
+                if (not(list[i] == value.getList()[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+            return false;
+    }
 
     private:
     Client *list;

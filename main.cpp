@@ -27,4 +27,11 @@ int main() {
     list.showQueue();
     Queue list_3 = list + list_2;
     list_3.showQueue();
+    if (list == list_2) {
+        cout << "True";
+    }
+    else
+    {
+        cout << "False";
+    }
 }
